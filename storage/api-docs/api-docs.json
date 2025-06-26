@@ -1,0 +1,3628 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "ZeeoWork API Name",
+        "description": "ZeeoWork API Description",
+        "contact": {
+            "email": "tech@zeework.ir"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://devpandora.zeework.ir/"
+        }
+    ],
+    "paths": {
+        "/admin/admins": {
+            "get": {
+                "tags": [
+                    "Admin/Admin"
+                ],
+                "operationId": "69a982fdbfdc8e8e4be66abe663198f4",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term for admin fields",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to order by",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Order direction",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Admin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "c5f70c43973acd3d42aa12b72ce6af38",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/admin/admins/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Admin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "556cd6af8e065f5819c17a805f254a38",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Admin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "b1b66f579041039b52c13e00e349e951",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Admin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "7f357da0a0c00f3795f8c810e410c084",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/employees": {
+            "get": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "operationId": "519244a52f5bba2029c15e8cdb77b7ed",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "description": "Filter by Organization ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to order by",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Order direction (asc/desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminEmployeeResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "2ba8ff61b62ce8d0c2854285c4668ce0",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AdminEmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminEmployeeResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/employees/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "6e471dfa94f668b7cecb02dd810e3d2c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminEmployeeResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "ad74dfa979c87476bef05d85a384124b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminEmployeeRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "3799d9025735035e85ac1589077a5d8c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/employees/destroy-from-organization/{organizationId}/{employeeId}": {
+            "delete": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "49517a13b9ed62412b7c14a177053e98",
+                "parameters": [
+                    {
+                        "name": "organizationId",
+                        "in": "path",
+                        "description": "Organization ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    },
+                    {
+                        "name": "employeeId",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/occupational_medicine": {
+            "get": {
+                "tags": [
+                    "Admin/OccupationalMedicine"
+                ],
+                "operationId": "135b5aa9eea1e511e2dd9ba876c63f45",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to order by",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Order direction (asc/desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminOccupationalMedicineResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/OccupationalMedicine"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "d3e81cbda040dae9627335833f57461d",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OccupationalMedicineRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminOccupationalMedicineResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/occupational_medicine/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/OccupationalMedicine"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "577f7b8b861bf5799a6ee1d1223eebf6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminOccupationalMedicineResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/OccupationalMedicine"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "74e2006ed7788cb6782e1bdc36f2621c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/occupational_medicines/{id}": {
+            "put": {
+                "tags": [
+                    "Admin/OccupationalMedicine"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "58b8c2677c7aaba067740dbc8b5e27e0",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/OccupationalMedicineRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/departments": {
+            "get": {
+                "tags": [
+                    "Admin/Departments"
+                ],
+                "operationId": "8b823c86e0e854e98accaf1f3aaca6bc",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "description": "Filter by Organization ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to order by",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Order direction (asc/desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminDepartmentResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "c7d186aa2a9069b88318fbf1629b2365",
+                "requestBody": {
+                    "$ref": "#/components/schemas/DepartmentRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/departments/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "e6fc6963cb5fed465835e32027727503",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminDepartmentResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "2ee9331e716304c3a0d003f5295e49fa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Department ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/DepartmentRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "166fb5cd87cc0916f5618a0ef141ee7e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Department ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/organization-admins": {
+            "get": {
+                "tags": [
+                    "Admin/OrganizationAdmin"
+                ],
+                "operationId": "6cd92efa43e10428fb9471c7fdf60bf1",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "organization_id",
+                        "in": "query",
+                        "description": "Filter by Organization ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to order by",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Order direction (asc/desc)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminOrganizationAdminResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/OrganizationAdmin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "838a0ae484fce4ba8ec8f1fade8e5421",
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminOrganizationAdminRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/organization-admins/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/OrganizationAdmin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "50cad7ebc9e333bf902faf1e24ad921d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Employee ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/OrganizationAdmin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "6e0252714bb32c47392ee8fb8126dc2b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminOrganizationAdminRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/OrganizationAdmin"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "152e68fd18cc40b1e45b8e022701d494",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/organizations": {
+            "get": {
+                "tags": [
+                    "Admin/Organizations"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "ee815278bc7e5273cca44acff2df86f5",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminOrganizationResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Organizations"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "d7ca8644abbcd2cbab36795317b95acd",
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminOrganizationRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/organizations/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Organizations"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "d2713f83f9a240168ad67ecfe149efff",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organizations ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminOrganizationResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Organizations"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "4de89e5b92cc12b7dbc0232e1d2cf363",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organizations ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminOrganizationRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Organizations"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "497505062d0f91f3ae5ee23f5222f80d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Organizations ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/physicians": {
+            "get": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "8b4c6a07584b55cfc9ca172ad199a8ad",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AdminPhysicianResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "3c5c3112ea5529036fd86b883a5f8703",
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminPhysicianRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/physicians/{id}": {
+            "get": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "1d8e1fe5880b762c6b558faf1b68cbcc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Physicians ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "aa5dc26b7e559efd4cc6c47cfb878d00",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Physicians ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/AdminPhysicianRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "5fa17233c6623d166761c837ddb13b53",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Physicians ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/profile": {
+            "get": {
+                "tags": [
+                    "Admin/Profile"
+                ],
+                "summary": "Get current admin profile",
+                "operationId": "ba377a553b379f7d4f9896fb6c79c130",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AdminResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Admin/Profile"
+                ],
+                "summary": "Update current admin profile",
+                "operationId": "408e0d8007fb33e0f30cfc4438596fd0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateAdminProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/profile/change-password": {
+            "put": {
+                "tags": [
+                    "Admin/Profile"
+                ],
+                "summary": "Change current admin password",
+                "operationId": "8a4a264fade37b48402e2a430a635063",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangeAdminPasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Initiate login process or request OTP",
+                "description": "Accepts username (email or mobile). Returns roles if multiple, or key for next step (otp/password).",
+                "operationId": "a89ee14cbfd79c24c355f5665a5a987a",
+                "requestBody": {
+                    "description": "User credentials for login",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/otp": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Request OTP for a given username",
+                "description": "Sends an OTP if the user (typically employee) is found.",
+                "operationId": "e4cd809640ae6e1c9414ed4f5e3ed04b",
+                "requestBody": {
+                    "description": "Username for OTP request",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthOtpRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/validate": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Validate OTP or password and get authentication token",
+                "description": "Validates the provided OTP (for employees) or password (for other roles) and returns an auth token upon success.",
+                "operationId": "8084233284224afb1cb84e44e82b416f",
+                "requestBody": {
+                    "description": "Validation credentials",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AuthValidateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Log out the current user",
+                "description": "Invalidates the current user's access token.",
+                "operationId": "cc94e3279962962489cb3bbc3baa8b38",
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/employee/profile": {
+            "get": {
+                "tags": [
+                    "Employee/Profile"
+                ],
+                "summary": "Get current Employee profile",
+                "operationId": "3a5192fe5690ff714fba58f0371e7d9b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeSelfResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Employee/Profile"
+                ],
+                "summary": "Update current Employee profile",
+                "operationId": "9c6977eabcca49ed420e833eeb0048cf",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateEmployeeProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/departments": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "2783a7197e73552f9cc42ccace08a28f",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrganizationAdminDepartmentResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "3175ebe05683b879ab03e1527095c7f4",
+                "requestBody": {
+                    "$ref": "#/components/schemas/OrganizationAdminDepartmentRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/departments/{id}": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "b3e62e4e160849e44a89306245f05b44",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrganizationAdminDepartmentResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "c5789911869305f1a6846b0106642438",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/OrganizationAdminDepartmentRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "e0f14532fe3ad7572577285761e59f56",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/employees": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "3cf0f9346b1838be942219ce5fb167ef",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrganizationAdminEmployeeResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "03f1a536ad07a990f7e5691225f4fd30",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrganizationAdminEmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrganizationAdminEmployeeResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/employees/{id}": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "07a409d5d2cdb3ec2c9483d1db886bb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrganizationAdminEmployeeResource"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "e6a416864874f198d05b17110d6fffca",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/schemas/OrganizationAdminEmployeeRequest"
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "OA docs for this route",
+                "operationId": "e10fbf3062a64bfa4d9f0b646de038aa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "OrganizationAdmin ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/profile": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Profile"
+                ],
+                "summary": "Get current OrganizationAdmin profile",
+                "operationId": "9223cc8c5c6aa75e8717651372088c0b",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HrOrganizationAdminResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "OrganizationAdmin/Profile"
+                ],
+                "summary": "Update current OrganizationAdmin profile",
+                "operationId": "5b5300584b4aebd43585e7a6f2885311",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateOrganizationAdminProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/profile/change-password": {
+            "put": {
+                "tags": [
+                    "OrganizationAdmin/Profile"
+                ],
+                "summary": "Change current OrganizationAdmin password",
+                "operationId": "fd9bd90f6eee2736508834a5e6b2bc2b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangeOrganizationAdminPasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/physician/profile": {
+            "get": {
+                "tags": [
+                    "Physician/Profile"
+                ],
+                "summary": "Get current Physician profile",
+                "operationId": "9f8b3964b308e1a7bdbf882d6ea3add0",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PhysicianSelfResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Physician/Profile"
+                ],
+                "summary": "Update current Physician profile",
+                "operationId": "64849a8f5014a537aedd45336a6bfaa6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePhysiciansProfileRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/physician/profile/change-password": {
+            "put": {
+                "tags": [
+                    "Physician/Profile"
+                ],
+                "summary": "Change current Physician password",
+                "operationId": "edad21f88990dba26368424da86712ee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangePhysicianPasswordRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiResponse": {
+                "properties": {
+                    "ok": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "messages": {
+                        "description": "آرایه‌ای از پیام‌ها برای کاربر (می‌تواند شامل پیام‌های موفقیت، خطا یا اطلاعاتی باشد)",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "عملیات با موفقیت انجام شد."
+                        },
+                        "example": [
+                            "عملیات موفقیت‌آمیز بود",
+                            "پیام دوم در صورت وجود"
+                        ],
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "object",
+                        "example": {
+                            "id": 1,
+                            "name": "Ali"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AdminRequest": {
+                "title": "Admin Request",
+                "required": [
+                    "name",
+                    "email",
+                    "phone",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "john.doe@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "1234567890"
+                    },
+                    "password": {
+                        "type": "string",
+                        "format": "password",
+                        "example": "password123"
+                    }
+                },
+                "type": "object"
+            },
+            "ChangeAdminPasswordRequest": {
+                "title": "Change Admin Password Request",
+                "required": [
+                    "current_password",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "current_password": {
+                        "description": "Admin's current password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "current_secret"
+                    },
+                    "password": {
+                        "description": "Admin's new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    },
+                    "password_confirmation": {
+                        "description": "Confirmation of the new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    }
+                },
+                "type": "object"
+            },
+            "DepartmentRequest": {
+                "title": "Department Request",
+                "required": [
+                    "organization_id",
+                    "name"
+                ],
+                "properties": {
+                    "organization_id": {
+                        "description": "ID of the organization",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "Name of the department",
+                        "type": "string",
+                        "example": "IT Department"
+                    },
+                    "description": {
+                        "description": "Department description (optional)",
+                        "type": "string",
+                        "example": "This is the IT department",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AdminEmployeeRequest": {
+                "title": "Employee Request",
+                "required": [
+                    "national_code",
+                    "name",
+                    "email",
+                    "phone",
+                    "organization_id",
+                    "department_ids",
+                    "job_position"
+                ],
+                "properties": {
+                    "national_code": {
+                        "description": "کد ملی کارمند",
+                        "type": "string",
+                        "example": "1234567890"
+                    },
+                    "name": {
+                        "description": "نام کارمند",
+                        "type": "string",
+                        "example": "Ali Karimi"
+                    },
+                    "email": {
+                        "description": "ایمیل کارمند",
+                        "type": "string",
+                        "format": "email",
+                        "example": "ali.karimi@example.com"
+                    },
+                    "phone": {
+                        "description": "شماره موبایل",
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "description": "عکس پرسنلی (اپلود عکس اختیاری)",
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "organization_id": {
+                        "description": "آیدی سازمان",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "department_ids": {
+                        "description": "لیست آیدی دپارتمان‌ها",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 2
+                        },
+                        "minItems": 1
+                    },
+                    "job_position": {
+                        "description": "سمت شغلی",
+                        "type": "string",
+                        "example": "Software Engineer"
+                    }
+                },
+                "type": "object"
+            },
+            "OccupationalMedicineRequest": {
+                "title": "OccupationalMedicine Request",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "نام سازمان (اجباری)",
+                        "type": "string",
+                        "example": "شرکت نمونه"
+                    },
+                    "national_id": {
+                        "description": "شناسه ملی سازمان",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "1234567890",
+                        "nullable": true
+                    },
+                    "reg_number": {
+                        "description": "شماره ثبت شرکت",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "987654321",
+                        "nullable": true
+                    },
+                    "economic_code": {
+                        "description": "کد اقتصادی",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "55667788",
+                        "nullable": true
+                    },
+                    "address": {
+                        "description": "آدرس سازمان",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "تهران، خیابان آزادی، پلاک ۲۳",
+                        "nullable": true
+                    },
+                    "company_phone": {
+                        "description": "شماره تلفن شرکت",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "02112345678",
+                        "nullable": true
+                    },
+                    "representative_name": {
+                        "description": "نام نماینده شرکت",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "رضا محمدی",
+                        "nullable": true
+                    },
+                    "representative_position": {
+                        "description": "سمت نماینده",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "مدیرعامل",
+                        "nullable": true
+                    },
+                    "representative_phone": {
+                        "description": "شماره موبایل نماینده",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "09121234567",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AdminOrganizationAdminRequest": {
+                "title": "Organization Admin Request",
+                "required": [
+                    "organization_id",
+                    "name",
+                    "email",
+                    "phone"
+                ],
+                "properties": {
+                    "organization_id": {
+                        "description": "شناسه سازمان",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "description": "نام ادمین سازمان",
+                        "type": "string",
+                        "example": "Sara Ahmadi"
+                    },
+                    "email": {
+                        "description": "ایمیل ادمین سازمان",
+                        "type": "string",
+                        "format": "email",
+                        "example": "sara.ahmadi@example.com"
+                    },
+                    "password": {
+                        "description": "رمز عبور (هنگام ثبت اجباری)",
+                        "type": "string",
+                        "format": "password",
+                        "example": "password123"
+                    },
+                    "phone": {
+                        "description": "شماره موبایل ادمین سازمان",
+                        "type": "string",
+                        "example": "09121234567"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminOrganizationRequest": {
+                "title": "Organization Request",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "نام سازمان (اجباری)",
+                        "type": "string",
+                        "example": "شرکت نمونه"
+                    },
+                    "national_id": {
+                        "description": "شناسه ملی سازمان",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "1234567890",
+                        "nullable": true
+                    },
+                    "reg_number": {
+                        "description": "شماره ثبت شرکت",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "987654321",
+                        "nullable": true
+                    },
+                    "economic_code": {
+                        "description": "کد اقتصادی",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "55667788",
+                        "nullable": true
+                    },
+                    "logo": {
+                        "description": "لوگوی شرکت (تصویر)",
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "address": {
+                        "description": "آدرس سازمان",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "تهران، خیابان آزادی، پلاک ۲۳",
+                        "nullable": true
+                    },
+                    "company_phone": {
+                        "description": "شماره تلفن شرکت",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "02112345678",
+                        "nullable": true
+                    },
+                    "representative_name": {
+                        "description": "نام نماینده شرکت",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "رضا محمدی",
+                        "nullable": true
+                    },
+                    "representative_position": {
+                        "description": "سمت نماینده",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "مدیرعامل",
+                        "nullable": true
+                    },
+                    "representative_phone": {
+                        "description": "شماره موبایل نماینده",
+                        "type": "string",
+                        "maxLength": 30,
+                        "example": "09121234567",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "AdminPhysicianRequest": {
+                "title": "Physician Request",
+                "required": [
+                    "name",
+                    "email",
+                    "phone"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "نام پزشک",
+                        "type": "string",
+                        "example": "دکتر محمد قاسمی"
+                    },
+                    "email": {
+                        "description": "ایمیل پزشک",
+                        "type": "string",
+                        "format": "email",
+                        "example": "ghasemi@example.com"
+                    },
+                    "password": {
+                        "description": "رمز عبور (هنگام ثبت اجباری)",
+                        "type": "string",
+                        "format": "password",
+                        "example": "password123"
+                    },
+                    "phone": {
+                        "description": "شماره موبایل پزشک",
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "description": "عکس پزشک (آپلود تصویر اختیاری)",
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateAdminProfileRequest": {
+                "title": "Update Admin Profile Request",
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "Admin's first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "email": {
+                        "description": "Admin's email",
+                        "type": "string",
+                        "example": "Doe@test.com"
+                    },
+                    "phone": {
+                        "description": "Admin's phone",
+                        "type": "string",
+                        "example": "09012211111"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthOtpRequest": {
+                "title": "Auth OTP Request Body",
+                "description": "Data required for requesting an OTP.",
+                "required": [
+                    "username"
+                ],
+                "properties": {
+                    "username": {
+                        "description": "User's email address or Iranian mobile number (usually mobile for OTP).",
+                        "type": "string",
+                        "format": "email|mobile",
+                        "minLength": 5,
+                        "example": "09123456789"
+                    }
+                },
+                "type": "object"
+            },
+            "AuthValidateRequest": {
+                "title": "Auth Validate Request Body",
+                "description": "Data required for validating OTP or password.",
+                "required": [
+                    "username",
+                    "role",
+                    "pass"
+                ],
+                "properties": {
+                    "username": {
+                        "description": "User's email address or Iranian mobile number.",
+                        "type": "string",
+                        "format": "email|mobile",
+                        "minLength": 5,
+                        "example": "user@example.com or 09123456789"
+                    },
+                    "role": {
+                        "description": "The role to validate against.",
+                        "type": "string",
+                        "enum": [
+                            "admin",
+                            "employee",
+                            "physician",
+                            "organization_admin"
+                        ],
+                        "example": "employee"
+                    },
+                    "pass": {
+                        "description": "The OTP code or user's password.",
+                        "type": "string",
+                        "example": "1234 or S3cr3tP@sswOrd!"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginRequest": {
+                "title": "Login Request Body",
+                "description": "Data required for initiating the login process.",
+                "required": [
+                    "username"
+                ],
+                "properties": {
+                    "username": {
+                        "description": "User's email address or Iranian mobile number.",
+                        "type": "string",
+                        "format": "email|mobile",
+                        "minLength": 5,
+                        "example": "09030907396"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateEmployeeProfileRequest": {
+                "title": "Update Employee Profile Request",
+                "description": "Request body for updating employee profile information. Email and phone number changes might be ignored or handled separately.",
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "Employee's full name or first name",
+                        "type": "string",
+                        "example": "پوریا"
+                    },
+                    "national_code": {
+                        "description": "Employee's national code (if submitted, must be unique if changed)",
+                        "type": "string",
+                        "example": "0012345678"
+                    },
+                    "email": {
+                        "description": "Employee's email (if submitted, must be unique if changed)",
+                        "type": "string",
+                        "format": "email",
+                        "example": "employee@example.com"
+                    },
+                    "phone": {
+                        "description": "Employee's phone number (if submitted, must be unique if changed)",
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "description": "Employee's photo/avatar image file (optional)",
+                        "type": "string",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "ChangeOrganizationAdminPasswordRequest": {
+                "title": "Change OrganizationAdmin Password Request",
+                "required": [
+                    "current_password",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "current_password": {
+                        "description": "Admin's current password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "current_secret"
+                    },
+                    "password": {
+                        "description": "Admin's new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    },
+                    "password_confirmation": {
+                        "description": "Confirmation of the new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationAdminDepartmentRequest": {
+                "title": "Organization Admin Department Request",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "نام دپارتمان (در هر سازمان یکتا)",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "منابع انسانی"
+                    },
+                    "description": {
+                        "description": "توضیحات دپارتمان (اختیاری)",
+                        "type": "string",
+                        "maxLength": 1000,
+                        "example": "این دپارتمان مسئول جذب و مدیریت منابع انسانی است.",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationAdminEmployeeRequest": {
+                "title": "Organization Admin Employee Request",
+                "required": [
+                    "national_code",
+                    "name",
+                    "email",
+                    "phone",
+                    "department_ids",
+                    "job_position"
+                ],
+                "properties": {
+                    "national_code": {
+                        "description": "کد ملی کارمند (۸ تا ۱۰ رقم، یکتا)",
+                        "type": "string",
+                        "example": "0071234567"
+                    },
+                    "name": {
+                        "description": "نام کامل کارمند",
+                        "type": "string",
+                        "maxLength": 255,
+                        "example": "علی رضایی"
+                    },
+                    "email": {
+                        "description": "ایمیل کارمند (یکتا)",
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255,
+                        "example": "ali.rezaei@example.com"
+                    },
+                    "phone": {
+                        "description": "شماره موبایل کارمند (یکتا)",
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "description": "عکس پرسنلی (jpeg, png, jpg, gif - حداکثر ۲ مگابایت، اختیاری)",
+                        "type": "string",
+                        "format": "binary",
+                        "nullable": true
+                    },
+                    "department_ids": {
+                        "description": "آرایه آیدی دپارتمان‌ها (حداقل یک مورد، فقط دپارتمان‌های این سازمان)",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "example": 2
+                        },
+                        "minItems": 1
+                    },
+                    "job_position": {
+                        "description": "سمت شغلی کارمند",
+                        "type": "string",
+                        "maxLength": 100,
+                        "example": "برنامه‌نویس ارشد"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateOrganizationAdminProfileRequest": {
+                "title": "Update OrganizationAdmin Profile Request",
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "Admin's first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "email": {
+                        "description": "Admin's email",
+                        "type": "string",
+                        "example": "Doe@test.com"
+                    },
+                    "phone": {
+                        "description": "Admin's phone",
+                        "type": "string",
+                        "example": "09012211111"
+                    }
+                },
+                "type": "object"
+            },
+            "ChangePhysicianPasswordRequest": {
+                "title": "Change Physician Password Request",
+                "required": [
+                    "current_password",
+                    "password",
+                    "password_confirmation"
+                ],
+                "properties": {
+                    "current_password": {
+                        "description": "Admin's current password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "current_secret"
+                    },
+                    "password": {
+                        "description": "Admin's new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    },
+                    "password_confirmation": {
+                        "description": "Confirmation of the new password",
+                        "type": "string",
+                        "format": "password",
+                        "example": "NewS3cr3t!"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdatePhysiciansProfileRequest": {
+                "title": "Update physicians Profile Request",
+                "required": [],
+                "properties": {
+                    "name": {
+                        "description": "physicians's first name",
+                        "type": "string",
+                        "example": "John"
+                    },
+                    "email": {
+                        "description": "physicians's email",
+                        "type": "string",
+                        "example": "Doe@test.com"
+                    },
+                    "phone": {
+                        "description": "physicians's phone",
+                        "type": "string",
+                        "example": "09012211111"
+                    },
+                    "photo": {
+                        "description": "physicians's avatar image file (optional)",
+                        "type": "file",
+                        "format": "binary"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminResource": {
+                "properties": {
+                    "id": {
+                        "description": "Transform the resource into an array.",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "roles": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "AdminDepartmentResource": {
+                "title": "Department Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Department 1"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Department 1 description"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2021-01-01 00:00:00"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminEmployeeResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "national_code": {
+                        "type": "string",
+                        "example": "0071234567"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "علی رضایی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "ali.rezaei@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "https://example.com/uploads/employees/123.jpg",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminOccupationalMedicineResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "شرکت فناوری آرمان"
+                    },
+                    "national_id": {
+                        "type": "string",
+                        "example": "14001234567",
+                        "nullable": true
+                    },
+                    "reg_number": {
+                        "type": "string",
+                        "example": "123456",
+                        "nullable": true
+                    },
+                    "economic_code": {
+                        "type": "string",
+                        "example": "987654321",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "تهران، خیابان آزادی، پلاک ۲۳",
+                        "nullable": true
+                    },
+                    "company_phone": {
+                        "type": "string",
+                        "example": "02112345678",
+                        "nullable": true
+                    },
+                    "representative_name": {
+                        "type": "string",
+                        "example": "رضا محمدی",
+                        "nullable": true
+                    },
+                    "representative_position": {
+                        "type": "string",
+                        "example": "مدیرعامل",
+                        "nullable": true
+                    },
+                    "representative_phone": {
+                        "type": "string",
+                        "example": "09121234567",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminOrganizationAdminResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "سارا احمدی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "sara.ahmadi@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09121234567"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminOrganizationResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 5
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "شرکت فناوری آرمان"
+                    },
+                    "national_id": {
+                        "type": "string",
+                        "example": "14001234567",
+                        "nullable": true
+                    },
+                    "reg_number": {
+                        "type": "string",
+                        "example": "123456",
+                        "nullable": true
+                    },
+                    "economic_code": {
+                        "type": "string",
+                        "example": "987654321",
+                        "nullable": true
+                    },
+                    "logo": {
+                        "type": "string",
+                        "format": "url",
+                        "example": "https://cdn.example.com/logos/5.png",
+                        "nullable": true
+                    },
+                    "address": {
+                        "type": "string",
+                        "example": "تهران، خیابان آزادی، پلاک ۲۳",
+                        "nullable": true
+                    },
+                    "company_phone": {
+                        "type": "string",
+                        "example": "02112345678",
+                        "nullable": true
+                    },
+                    "representative_name": {
+                        "type": "string",
+                        "example": "رضا محمدی",
+                        "nullable": true
+                    },
+                    "representative_position": {
+                        "type": "string",
+                        "example": "مدیرعامل",
+                        "nullable": true
+                    },
+                    "representative_phone": {
+                        "type": "string",
+                        "example": "09121234567",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "AdminPhysicianResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "دکتر محمد قاسمی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "ghasemi@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "format": "url",
+                        "example": "https://cdn.example.com/physicians/10.jpg",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "EmployeeSelfResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 123
+                    },
+                    "national_code": {
+                        "type": "string",
+                        "example": "0071234567"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "علی رضایی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "ali.rezaei@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "example": "https://example.com/uploads/employees/123.jpg",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationAdminDepartmentResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "واحد مالی"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "این دپارتمان مسئول امور مالی شرکت است.",
+                        "nullable": true
+                    },
+                    "employee_count": {
+                        "description": "تعداد کارمندان دپارتمان (در صورت بارگذاری relation)",
+                        "type": "integer",
+                        "example": 12,
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01 08:30:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-10 11:21:00"
+                    }
+                },
+                "type": "object"
+            },
+            "OrganizationAdminEmployeeResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 23
+                    },
+                    "national_code": {
+                        "type": "string",
+                        "example": "0071234567"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "علی رضایی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "ali.rezaei@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "format": "url",
+                        "example": "https://cdn.example.com/employees/23.jpg",
+                        "nullable": true
+                    },
+                    "job_position": {
+                        "type": "string",
+                        "example": "برنامه‌نویس ارشد",
+                        "nullable": true
+                    },
+                    "departments": {
+                        "description": "لیست دپارتمان‌های کارمند در این سازمان",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrganizationAdminDepartmentResource"
+                        }
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01 14:00:00"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-02 09:30:00"
+                    }
+                },
+                "type": "object"
+            },
+            "HrOrganizationAdminResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "organization_id": {
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "سارا احمدی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "sara.ahmadi@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09121234567"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "PhysicianSelfResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "دکتر محمد قاسمی"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "ghasemi@example.com"
+                    },
+                    "phone": {
+                        "type": "string",
+                        "example": "09123456789"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "format": "url",
+                        "example": "https://cdn.example.com/physicians/10.jpg",
+                        "nullable": true
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admin/Admin",
+            "description": "Admin/Admin"
+        },
+        {
+            "name": "Admin/Employees",
+            "description": "Admin/Employees"
+        },
+        {
+            "name": "Admin/OccupationalMedicine",
+            "description": "Admin/OccupationalMedicine"
+        },
+        {
+            "name": "Admin/Departments",
+            "description": "Admin/Departments"
+        },
+        {
+            "name": "Admin/OrganizationAdmin",
+            "description": "Admin/OrganizationAdmin"
+        },
+        {
+            "name": "Admin/Organizations",
+            "description": "Admin/Organizations"
+        },
+        {
+            "name": "Admin/Physicians",
+            "description": "Admin/Physicians"
+        },
+        {
+            "name": "Admin/Profile",
+            "description": "Admin/Profile"
+        },
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Employee/Profile",
+            "description": "Employee/Profile"
+        },
+        {
+            "name": "OrganizationAdmin/Departments",
+            "description": "OrganizationAdmin/Departments"
+        },
+        {
+            "name": "OrganizationAdmin/Employees",
+            "description": "OrganizationAdmin/Employees"
+        },
+        {
+            "name": "OrganizationAdmin/Profile",
+            "description": "OrganizationAdmin/Profile"
+        },
+        {
+            "name": "Physician/Profile",
+            "description": "Physician/Profile"
+        }
+    ]
+}
