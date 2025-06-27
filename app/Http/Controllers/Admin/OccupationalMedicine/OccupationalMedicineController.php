@@ -7,7 +7,10 @@ use App\Http\Resources\Admin\OccupationalMedicineResource;
 use App\Services\Admin\OccupationalMedicineService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\Admin\ImportOccupationalMedicinesRequest;
+use App\Imports\AdminOccupationalMedicinesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\ValidationException;
 class OccupationalMedicineController extends Controller
 {
     protected OccupationalMedicineService $service;
@@ -158,6 +161,46 @@ class OccupationalMedicineController extends Controller
     {
         $this->service->delete($id);
         return response()->apiResult(messages: [__('messages.deleted')]);
+    }
+
+    /**
+     * @OA\Post(
+     * path="/api/admin/occupational-medicines/import",
+     * tags={"Admin/OccupationalMedicines"},
+     * summary="Import occupational medicines from an Excel file",
+     * security={{"bearerAuth":{}}},
+     * @OA\RequestBody(
+     * required=true,
+     * @OA\MediaType(
+     * mediaType="multipart/form-data",
+     * @OA\Schema(
+     * @OA\Property(property="file", type="string", format="binary", description="Excel file for occupational medicines.")
+     * )
+     * )
+     * ),
+     * @OA\Response(response=200, description="Successful import", @OA\JsonContent(ref="#/components/schemas/ApiResponse")),
+     * @OA\Response(response=422, description="Validation error", @OA\JsonContent(ref="#/components/schemas/ApiResponse"))
+     * )
+     *
+     * @param ImportOccupationalMedicinesRequest $request
+     * @return JsonResponse
+     */
+    public function import(ImportOccupationalMedicinesRequest $request): JsonResponse
+    {
+        try {
+            Excel::import(new AdminOccupationalMedicinesImport(), $request->file('file'));
+            return response()->apiResult(messages: [__('messages.import_success')]);
+        } catch (ValidationException $e) {
+            $errors = [];
+            foreach ($e->errors() as $key => $messages) {
+                $rowIndex = (int) explode('.', $key)[0] + 2;
+                $errors[] = __('messages.import_validation_error', [
+                    'row' => $rowIndex,
+                    'errors' => implode(', ', $messages)
+                ]);
+            }
+            return response()->apiResult(messages: array_unique($errors), statusCode: 422);
+        }
     }
 
 }

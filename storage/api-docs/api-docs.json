@@ -521,6 +521,70 @@
                 ]
             }
         },
+        "/api/admin/organizations/{organizationId}/employees/import": {
+            "post": {
+                "tags": [
+                    "Admin/Employees"
+                ],
+                "summary": "Import employees for a specific organization by Admin",
+                "operationId": "468443c5d823af92cc698d86bb747e2d",
+                "parameters": [
+                    {
+                        "name": "organizationId",
+                        "in": "path",
+                        "description": "The ID of the organization to import employees into",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Excel file with columns: `national_code`, `name`, `email`, `phone`, `job_position`, `departments`.",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful import",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/occupational_medicine": {
             "get": {
                 "tags": [
@@ -724,6 +788,59 @@
                 "responses": {
                     "200": {
                         "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/occupational-medicines/import": {
+            "post": {
+                "tags": [
+                    "Admin/OccupationalMedicines"
+                ],
+                "summary": "Import occupational medicines from an Excel file",
+                "operationId": "190a2aa57be4af063d1956d5dbcfd801",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "Excel file for occupational medicines.",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful import",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1528,6 +1645,59 @@
                 ]
             }
         },
+        "/api/admin/physicians/import": {
+            "post": {
+                "tags": [
+                    "Admin/Physicians"
+                ],
+                "summary": "Import physicians from an Excel file",
+                "operationId": "68c86b8697b6268fc23332a34af7ed2b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "Excel file with columns: name, email, phone, password",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful import",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/admin/profile": {
             "get": {
                 "tags": [
@@ -2168,6 +2338,60 @@
                 "responses": {
                     "200": {
                         "description": "خروجی استاندارد",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/employees/import": {
+            "post": {
+                "tags": [
+                    "OrganizationAdmin/Employees"
+                ],
+                "summary": "Import employees from an Excel file for the authenticated admin's organization",
+                "operationId": "776c849a90feebceca47d4cd9f1e6b45",
+                "requestBody": {
+                    "description": "Excel file containing employee data. The file must have a header row with columns: `national_code`, `name`, `email`, `phone`, `job_position`, `departments`. The `departments` column should contain comma-separated department names.",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "description": "The .xlsx or .csv file to import.",
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Import was successful.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ApiResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error, for example, if the file is missing or has validation errors in rows.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -3579,6 +3803,10 @@
         {
             "name": "Admin/OccupationalMedicine",
             "description": "Admin/OccupationalMedicine"
+        },
+        {
+            "name": "Admin/OccupationalMedicines",
+            "description": "Admin/OccupationalMedicines"
         },
         {
             "name": "Admin/Departments",

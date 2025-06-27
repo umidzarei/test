@@ -3,11 +3,14 @@ namespace App\Http\Controllers\OrganizationAdmin\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationAdmin\EmployeeRequest;
+use App\Http\Requests\OrganizationAdmin\ImportEmployeeRequest;
 use App\Http\Resources\OrganizationAdmin\EmployeeResource;
+use App\Imports\OrganizationEmployeesImport;
 use App\Services\OrganizationAdmin\EmployeeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 class EmployeeController extends Controller
 {
     protected EmployeeService $service;
@@ -189,4 +192,61 @@ class EmployeeController extends Controller
         $this->service->dissociateFromOrganizationForAuthenticatedOrgAdmin($id);
         return response()->apiResult(messages: [__('messages.dissociated_from_organization')]);
     }
+
+    /**
+     * @OA\Post(
+     * path="/api/hr/employees/import",
+     * tags={"OrganizationAdmin/Employees"},
+     * summary="Import employees from an Excel file for the authenticated admin's organization",
+     * security={{"bearerAuth":{}}},
+     * @OA\RequestBody(
+     * required=true,
+     * description="Excel file containing employee data. The file must have a header row with columns: `national_code`, `name`, `email`, `phone`, `job_position`, `departments`. The `departments` column should contain comma-separated department names.",
+     * @OA\MediaType(
+     * mediaType="multipart/form-data",
+     * @OA\Schema(
+     * @OA\Property(
+     * property="file",
+     * description="The .xlsx or .csv file to import.",
+     * type="string",
+     * format="binary"
+     * )
+     * )
+     * )
+     * ),
+     * @OA\Response(
+     * response=200,
+     * description="Import was successful.",
+     * @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     * ),
+     * @OA\Response(
+     * response=422,
+     * description="Validation error, for example, if the file is missing or has validation errors in rows.",
+     * @OA\JsonContent(ref="#/components/schemas/ApiResponse")
+     * )
+     * )
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function import(ImportEmployeeRequest $request): JsonResponse
+    {
+        try {
+            Excel::import(new OrganizationEmployeesImport(), $request->file('file'));
+
+            return response()->apiResult(messages: [__('messages.import_success')]);
+
+        } catch (ValidationException $e) {
+            $errors = [];
+            foreach ($e->errors() as $key => $messages) {
+                $rowIndex = (int) explode('.', $key)[0] + 2;
+                $errors[] = __('messages.import_validation_error', [
+                    'row' => $rowIndex,
+                    'errors' => implode(', ', $messages)
+                ]);
+            }
+            return response()->apiResult(messages: array_unique($errors), statusCode: 422);
+        }
+    }
+
 }

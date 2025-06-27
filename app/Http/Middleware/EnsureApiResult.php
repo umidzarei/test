@@ -25,7 +25,7 @@ class EnsureApiResult
 
         try {
             $res = $next($request);
-            // return $res;
+            return $res;
 
             $res->headers->set('X-Powered-By', 'Zeenome');
             $nonApiResultAllowed = $res->headers->get('X-Internal-ApiResult') === 'skip';
@@ -40,7 +40,21 @@ class EnsureApiResult
             }
             if ($res->getStatusCode() === 422) {
                 $json_data = $this->getJsonOrFalse($res->getContent());
-                return response()->apiResult(null, 422, $json_data->errors);
+
+                if ($json_data && property_exists($json_data, 'errors')) {
+
+                    $errorMessages = [];
+                    foreach ($json_data->errors as $fieldErrors) {
+                        foreach ($fieldErrors as $error) {
+                            $errorMessages[] = $error;
+                        }
+                    }
+
+                    return response()->apiResult(null, 422, $errorMessages);
+
+                }
+
+                return response()->apiResult(null, 422, ['اطلاعات ارسال شده نامعتبر است.']);
             }
             if (!$this->isApiResult($res->getContent())) {
                 if (

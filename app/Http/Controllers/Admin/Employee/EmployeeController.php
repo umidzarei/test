@@ -7,7 +7,11 @@ use App\Http\Resources\Admin\EmployeeResource;
 use App\Services\Admin\EmployeeService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\Admin\ImportEmployeesRequest;
+use App\Imports\AdminEmployeesImport;
+use App\Models\Organization;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\ValidationException;
 class EmployeeController extends Controller
 {
     protected EmployeeService $service;
@@ -203,5 +207,53 @@ class EmployeeController extends Controller
     {
         $this->service->deleteFromOrganization($employeeId, $organizationId);
         return response()->apiResult(messages: [__('messages.deleted')]);
+    }
+    /**
+     * @OA\Post(
+     * path="/api/admin/organizations/{organizationId}/employees/import",
+     * tags={"Admin/Employees"},
+     * summary="Import employees for a specific organization by Admin",
+     * security={{"bearerAuth":{}}},
+     * @OA\Parameter(
+     * name="organizationId",
+     * in="path",
+     * required=true,
+     * description="The ID of the organization to import employees into",
+     * @OA\Schema(type="integer")
+     * ),
+     * @OA\RequestBody(
+     * required=true,
+     * description="Excel file with columns: `national_code`, `name`, `email`, `phone`, `job_position`, `departments`.",
+     * @OA\MediaType(
+     * mediaType="multipart/form-data",
+     * @OA\Schema(@OA\Property(property="file", type="string", format="binary"))
+     * )
+     * ),
+     * @OA\Response(response=200, description="Successful import", @OA\JsonContent(ref="#/components/schemas/ApiResponse")),
+     * @OA\Response(response=422, description="Validation error", @OA\JsonContent(ref="#/components/schemas/ApiResponse"))
+     * )
+     *
+     * @param ImportEmployeesRequest $request
+     * @param Organization $organization
+     * @return JsonResponse
+     */
+    public function import(ImportEmployeesRequest $request, Organization $organization): JsonResponse
+    {
+        try {
+            Excel::import(new AdminEmployeesImport($organization->id), $request->file('file'));
+
+            return response()->apiResult(messages: [__('messages.import_success')]);
+
+        } catch (ValidationException $e) {
+            $errors = [];
+            foreach ($e->errors() as $key => $messages) {
+                $rowIndex = (int) explode('.', $key)[0] + 2;
+                $errors[] = __('messages.import_validation_error', [
+                    'row' => $rowIndex,
+                    'errors' => implode(', ', $messages)
+                ]);
+            }
+            return response()->apiResult(messages: array_unique($errors), statusCode: 422);
+        }
     }
 }

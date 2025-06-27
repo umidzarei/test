@@ -7,7 +7,10 @@ use App\Http\Resources\Admin\PhysicianResource;
 use App\Services\Admin\PhysicianService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\Admin\ImportPhysiciansRequest;
+use App\Imports\AdminPhysiciansImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\ValidationException;
 class PhysicianController extends Controller
 {
     protected PhysicianService $service;
@@ -168,5 +171,42 @@ class PhysicianController extends Controller
         $this->service->delete($id);
         return response()->apiResult(messages: [__('messages.deleted')]);
 
+    }
+    /**
+     * @OA\Post(
+     * path="/api/admin/physicians/import",
+     * tags={"Admin/Physicians"},
+     * summary="Import physicians from an Excel file",
+     * security={{"bearerAuth":{}}},
+     * @OA\RequestBody(
+     * required=true,
+     * @OA\MediaType(
+     * mediaType="multipart/form-data",
+     * @OA\Schema(@OA\Property(property="file", type="string", format="binary", description="Excel file with columns: name, email, phone, password"))
+     * )
+     * ),
+     * @OA\Response(response=200, description="Successful import", @OA\JsonContent(ref="#/components/schemas/ApiResponse")),
+     * @OA\Response(response=422, description="Validation error", @OA\JsonContent(ref="#/components/schemas/ApiResponse"))
+     * )
+     *
+     * @param ImportPhysiciansRequest $request
+     * @return JsonResponse
+     */
+    public function import(ImportPhysiciansRequest $request): JsonResponse
+    {
+        try {
+            Excel::import(new AdminPhysiciansImport(), $request->file('file'));
+            return response()->apiResult(messages: [__('messages.import_success')]);
+        } catch (ValidationException $e) {
+            $errors = [];
+            foreach ($e->errors() as $key => $messages) {
+                $rowIndex = (int) explode('.', $key)[0] + 2;
+                $errors[] = __('messages.import_validation_error', [
+                    'row' => $rowIndex,
+                    'errors' => implode(', ', $messages)
+                ]);
+            }
+            return response()->apiResult(messages: array_unique($errors), statusCode: 422);
+        }
     }
 }
