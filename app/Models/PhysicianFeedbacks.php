@@ -6,22 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class PhysicianFeedbacks extends Model
 {
-    protected $table = 'physician_feedbacks';
 
     protected $fillable = [
         'request_employee_id',
-        'physician_id',
-        'notes',
-        'status',
+        'note',
     ];
-
-    public function physician()
-    {
-        return $this->belongsTo(Physician::class);
-    }
 
     public function requestEmployee()
     {
-        return $this->belongsTo(RequestEmployee::class);
+        return $this->belongsTo(RequestEmployee::class, 'request_employee_id');
     }
 }

@@ -6,18 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class LabData extends Model
 {
-    protected $table = 'lab_data';
 
     protected $fillable = [
         'request_employee_id',
-        'fbs',
-        'hdl',
-        'ldl',
-        'triglyceride',
-        'cholesterol',
-        'sgot',
-        'sgpt',
-        'hba1c',
+        'FBS',
+        'total_cholesterol',
+        'HDL_cholesterol',
+        'triglycerides',
+        'ALT',
+        'AST',
     ];
 
     public function requestEmployee()

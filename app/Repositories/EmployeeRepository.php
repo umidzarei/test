@@ -5,6 +5,7 @@ use App\Models\Employee;
 use App\Models\OrganizationEmployee;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 class EmployeeRepository extends BaseRepository
 {
     public function __construct()
@@ -108,7 +109,7 @@ class EmployeeRepository extends BaseRepository
             $query->where('organization_id', $organizationId);
         })
             ->with([
-                'organizationEmployee' => function ($query) use ($organizationId) { // لود کردن اطلاعات ارتباطی فقط برای این سازمان
+                'organizationEmployee' => function ($query) use ($organizationId) {
                     $query->where('organization_id', $organizationId)->with('departments');
                 }
             ])
@@ -121,4 +122,33 @@ class EmployeeRepository extends BaseRepository
             ->exists();
     }
 
+    public function getAssociatedOrganizations(Employee $employee): Collection
+    {
+        return $employee->organizationEmployee()
+            ->with('organization:id,name,logo')
+            ->get()
+            ->pluck('organization')
+            ->filter();
+    }
+    public function getByDepartmentIds(array $departmentIds, int $organizationId): Collection
+    {
+        return $this->query()
+            ->whereHas('organizationEmployee.departments', function ($query) use ($departmentIds) {
+                $query->whereIn('departments.id', $departmentIds);
+            })
+            ->whereHas('organizationEmployee', function ($query) use ($organizationId) {
+                $query->where('organization_id', $organizationId);
+            })
+            ->get();
+    }
+
+    public function getAllIdsByOrganization(int $organizationId): array
+    {
+        return $this->query()
+            ->whereHas('organizationEmployee', function ($query) use ($organizationId) {
+                $query->where('organization_id', $organizationId);
+            })
+            ->pluck('id')
+            ->all();
+    }
 }

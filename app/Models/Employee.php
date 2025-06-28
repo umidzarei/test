@@ -14,11 +14,6 @@ class Employee extends Model
     use HasApiTokens, Notifiable, HasRoles, HasFactory, Searchable, Filterable;
 
     protected $fillable = ['national_code', 'name', 'email', 'phone', 'photo'];
-
-    public function organizationEmployee()
-    {
-        return $this->hasMany(OrganizationEmployee::class);
-    }
     public function setPhoneAttribute($value)
     {
         if (is_null($value)) {
@@ -33,5 +28,20 @@ class Employee extends Model
         'email',
         'phone',
     ];
-
+    public function organizationEmployee()
+    {
+        return $this->hasMany(OrganizationEmployee::class, 'employee_id');
+    }
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_employees', 'employee_id', 'organization_id');
+    }
+    public function createdRequests()
+    {
+        return $this->morphMany(Request::class, 'requester');
+    }
+    public function requestEntries()
+    {
+        return $this->hasMany(RequestEmployee::class, 'employee_id');
+    }
 }

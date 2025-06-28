@@ -10,10 +10,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Model
 {
-    /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory;
-
-    use HasApiTokens, Notifiable, HasRoles, HasFactory, Searchable;
+    use HasFactory, HasApiTokens, Notifiable, HasRoles, HasFactory, Searchable;
 
     protected $guard_name = 'admin';
 
@@ -33,4 +30,9 @@ class Admin extends Model
         'email',
         'phone',
     ];
+
+    public function createdRequests()
+    {
+        return $this->morphMany(Request::class, 'requester');
+    }
 }

@@ -126,7 +126,7 @@ class OccupationalMedicineController extends Controller
     public function update(OccupationalMedicineRequest $request, $id): JsonResponse
     {
         $employee = $this->service->update($id, $request->validated());
-        return response()->apiResult(messages: [__('messages.updated')]);
+        return response()->apiResult([__('messages.updated')]);
 
 
     }
@@ -160,7 +160,7 @@ class OccupationalMedicineController extends Controller
     public function destroy($id): JsonResponse
     {
         $this->service->delete($id);
-        return response()->apiResult(messages: [__('messages.deleted')]);
+        return response()->apiResult([__('messages.deleted')]);
     }
 
     /**
@@ -189,7 +189,7 @@ class OccupationalMedicineController extends Controller
     {
         try {
             Excel::import(new AdminOccupationalMedicinesImport(), $request->file('file'));
-            return response()->apiResult(messages: [__('messages.import_success')]);
+            return response()->apiResult([__('messages.import_success')]);
         } catch (ValidationException $e) {
             $errors = [];
             foreach ($e->errors() as $key => $messages) {
@@ -199,7 +199,7 @@ class OccupationalMedicineController extends Controller
                     'errors' => implode(', ', $messages)
                 ]);
             }
-            return response()->apiResult(messages: array_unique($errors), statusCode: 422);
+            return response()->apiResult(array_unique($errors), statusCode: 422);
         }
     }
 

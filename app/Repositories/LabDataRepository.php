@@ -22,4 +22,9 @@ class LabDataRepository extends BaseRepository
             ->where('request_employee_id', $requestEmployeeId)
             ->first();
     }
+    public function createForRequestEmployee(int $requestEmployeeId, array $data): LabData
+    {
+        $data['request_employee_id'] = $requestEmployeeId;
+        return $this->create($data);
+    }
 }

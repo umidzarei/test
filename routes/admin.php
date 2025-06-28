@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Organization\OrganizationController;
 use App\Http\Controllers\Admin\Physician\PhysicianController;
 use App\Http\Controllers\Admin\Profile\ProfileController;
 use App\Http\Controllers\Admin\OccupationalMedicine\OccupationalMedicineController;
+use App\Http\Controllers\Admin\Request\RequestController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'auth.guard:admin'])->prefix('admin')->group(function () {
@@ -27,4 +28,6 @@ Route::middleware(['auth:sanctum', 'auth.guard:admin'])->prefix('admin')->group(
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::put('/profile/change-password', [ProfileController::class, 'changePassword']);
+
+    Route::apiResource('requests', RequestController::class)->only(['store']);
 });

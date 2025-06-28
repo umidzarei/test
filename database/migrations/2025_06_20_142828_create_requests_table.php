@@ -17,10 +17,10 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('tracking_code')->nullable();
             $table->foreignIdFor(Organization::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Physician::class)->nullable()->constrained()->onDelete('cascade');
             $table->foreignIdFor(OccupationalMedicine::class)->nullable()->constrained()->onDelete('cascade');
             $table->morphs('requester');
             $table->enum('status', ['pending', 'in_process', 'done', 'reject'])->default('pending');
+            $table->json('options')->nullable();
             $table->timestamps();
         });
     }

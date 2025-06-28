@@ -6,22 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
-    protected $table = 'requests';
 
     protected $fillable = [
-        'type',
-        'status',
+        'tracking_code',
         'organization_id',
-        'date',
-        'quote',
+        'occupational_medicine_id',
+        'requester_id',
+        'requester_type',
+        'status',
+        'options'
     ];
-
+    protected $casts = [
+        'options' => 'array',
+    ];
     public function organization()
     {
         return $this->belongsTo(Organization::class);
     }
 
     public function employees()
+    {
+        return $this->hasMany(RequestEmployee::class);
+    }
+    public function physicians()
+    {
+        return $this->belongsToMany(Physician::class, 'request_physician');
+    }
+    public function requester()
+    {
+        return $this->morphTo();
+    }
+    public function occupationalMedicine()
+    {
+        return $this->belongsTo(OccupationalMedicine::class);
+    }
+    public function requestEmployees()
     {
         return $this->hasMany(RequestEmployee::class);
     }

@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\RequestEmployee;
+use App\Models\Physician;
+use App\Models\Request;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,11 +12,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('physician_feedbacks', function (Blueprint $table) {
+        Schema::create('request_physician', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(RequestEmployee::class)->constrained()->onDelete('cascade');
-            $table->text('note')->nullable();
-
+            $table->foreignIdFor(Request::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Physician::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('physician_feedbacks');
+        Schema::dropIfExists('request_physician');
     }
 };

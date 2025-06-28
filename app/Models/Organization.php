@@ -28,7 +28,7 @@ class Organization extends Model
         return $this->hasMany(Department::class);
     }
 
-    public function admins()
+    public function organizationAdmins()
     {
         return $this->hasMany(OrganizationAdmin::class);
     }
@@ -41,4 +41,14 @@ class Organization extends Model
         'representative_position',
         'representative_phone',
     ];
+
+    public function organizationEmployee()
+    {
+        return $this->hasMany(OrganizationEmployee::class);
+    }
+
+    public function healthRequests()
+    {
+        return $this->hasMany(Request::class, 'organization_id');
+    }
 }

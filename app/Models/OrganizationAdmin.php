@@ -13,12 +13,10 @@ class OrganizationAdmin extends Model
     use HasApiTokens, Notifiable, HasRoles, HasFactory, Searchable;
 
     protected $fillable = ['organization_id', 'name', 'email', 'password', 'phone'];
-
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
-
+    protected $hidden = [
+        'password',
+    ];
+    protected $searchable = ['name', 'email', 'phone'];
     public function setPhoneAttribute($value)
     {
         if (is_null($value)) {
@@ -27,6 +25,13 @@ class OrganizationAdmin extends Model
         }
         $this->attributes['phone'] = normalizePhone($value);
     }
-    protected $searchable = ['name', 'email', 'phone'];
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+    public function createdRequests()
+    {
+        return $this->morphMany(Request::class, 'requester');
+    }
 
 }

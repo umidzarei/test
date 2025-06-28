@@ -12,6 +12,9 @@ class Physician extends Model
     use HasApiTokens, Notifiable, HasRoles, HasFactory;
 
     protected $fillable = ['name', 'email', 'password', 'phone', 'photo'];
+    protected $hidden = [
+        'password',
+    ];
     public function setPhoneAttribute($value)
     {
         if (is_null($value)) {
@@ -19,5 +22,10 @@ class Physician extends Model
             return;
         }
         $this->attributes['phone'] = normalizePhone($value);
+    }
+
+    public function healthRequests()
+    {
+        return $this->belongsToMany(Request::class, 'request_physician');
     }
 }

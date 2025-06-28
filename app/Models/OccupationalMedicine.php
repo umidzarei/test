@@ -31,4 +31,8 @@ class OccupationalMedicine extends Model
         'representative_position',
         'representative_phone',
     ];
+    public function healthRequests()
+    {
+        return $this->hasMany(Request::class, 'occupational_medicine_id');
+    }
 }

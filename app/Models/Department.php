@@ -10,12 +10,15 @@ class Department extends Model
     use HasFactory, Searchable;
 
     protected $fillable = ['organization_id', 'name', 'description'];
-
+    protected array $searchable = [
+        'name',
+    ];
     public function organization()
     {
         return $this->belongsTo(Organization::class);
     }
-    protected array $searchable = [
-        'name',
-    ];
+    public function organizationEmployees()
+    {
+        return $this->belongsToMany(OrganizationEmployee::class, 'organization_employee_departments');
+    }
 }

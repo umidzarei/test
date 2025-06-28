@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Common\Auth\AuthController;
+use App\Http\Controllers\Common\RequestOption\RequestOptionController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/admin.php';
@@ -13,4 +14,7 @@ Route::prefix('auth')->group(function () {
     Route::post('otp', [AuthController::class, 'otp']);
     Route::post('validate', [AuthController::class, 'validate']);
     Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
+    Route::prefix('common')->group(function () {
+        Route::get('/request-options', [RequestOptionController::class, 'index']);
+    });
 });
