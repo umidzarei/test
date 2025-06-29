@@ -13,5 +13,5 @@ Route::middleware(['auth:sanctum', 'auth.guard:organization_admin'])->prefix('hr
     Route::get('/profile', [ProfileController::class, 'show']);
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::put('/profile/change-password', [ProfileController::class, 'changePassword']);
-    Route::apiResource('requests', RequestController::class)->only(['store']);
+    Route::apiResource('requests', RequestController::class)->only(['store', 'index', 'show']);
 });

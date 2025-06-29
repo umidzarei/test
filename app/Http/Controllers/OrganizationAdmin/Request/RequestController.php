@@ -2,7 +2,10 @@
 namespace App\Http\Controllers\OrganizationAdmin\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\OrganizationAdmin\ListRequestsRequest;
 use App\Http\Requests\OrganizationAdmin\StoreHealthRequest;
+use App\Http\Resources\OrganizationAdmin\RequestDetailsResource;
+use App\Http\Resources\OrganizationAdmin\RequestListResource;
 use App\Http\Resources\OrganizationAdmin\RequestResource;
 use App\Services\OrganizationAdmin\RequestService;
 use Illuminate\Http\JsonResponse;
@@ -16,7 +19,28 @@ class RequestController extends Controller
     {
         $this->requestService = $requestService;
     }
-
+    /**
+     * @OA\Get(
+     * path="/api/hr/requests",
+     * summary="Get list of health requests for the organization",
+     * tags={"OrganizationAdmin/Requests"},
+     * security={{"sanctum":{}}},
+     * @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(ref="#/components/schemas/OrgAdminListRequestsQuery")
+     * ),
+     * @OA\Response(response=200, description="OK", @OA\JsonContent(type="array", @OA\Items(ref="#/components/schemas/OrgAdminRequestListResource")))
+     * )
+     */
+    public function index(ListRequestsRequest $request): JsonResponse
+    {
+        $orgAdmin = Auth::user();
+        $result = $this->requestService->getRequestListForOrganization(
+            $orgAdmin->organization_id,
+            $request->validated()
+        )->through(fn($r) => new RequestListResource($r));
+        return response()->apiResult(data: $result);
+    }
     /**
      * @OA\Post(
      * path="/api/hr/requests",
@@ -39,6 +63,30 @@ class RequestController extends Controller
             data: new RequestResource($healthRequest),
             messages: [__('messages.request_submitted_for_approval')],
             statusCode: 201
+        );
+    }
+
+    /**
+     * @OA\Get(
+     * path="/api/hr/requests/{id}",
+     * summary="Get details of a specific request for the organization",
+     * tags={"OrganizationAdmin/Requests"},
+     * security={{"sanctum":{}}},
+     * @OA\Parameter(name="id", in="path", required=true, @OA\Schema(type="integer")),
+     * @OA\Response(response=200, description="OK", @OA\JsonContent(ref="#/components/schemas/OrgAdminRequestDetailsResource")),
+     * @OA\Response(response=404, description="Request not found or not in this organization")
+     * )
+     */
+    public function show(int $id): JsonResponse
+    {
+        $orgAdmin = Auth::user();
+        $requestDetails = $this->requestService->getRequestDetails($orgAdmin->organization_id, $id);
+
+        if (!$requestDetails) {
+            return response()->apiError(__('messages.not_found'), 404);
+        }
+        return response()->apiResult(
+            data: new RequestDetailsResource($requestDetails),
         );
     }
 }

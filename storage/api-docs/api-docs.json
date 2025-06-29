@@ -2772,6 +2772,43 @@
             }
         },
         "/api/hr/requests": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Requests"
+                ],
+                "summary": "Get list of health requests for the organization",
+                "operationId": "05fa90b8669b094355eb1e2906ae472e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrgAdminListRequestsQuery"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OrgAdminRequestListResource"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
             "post": {
                 "tags": [
                     "OrganizationAdmin/Requests"
@@ -2806,6 +2843,45 @@
                     },
                     "422": {
                         "description": "Validation Error"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/hr/requests/{id}": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Requests"
+                ],
+                "summary": "Get details of a specific request for the organization",
+                "operationId": "d01fc3968bbe65bc1b80c4010f1e2bb2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrgAdminRequestDetailsResource"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Request not found or not in this organization"
                     }
                 },
                 "security": [
@@ -3657,6 +3733,59 @@
                 },
                 "type": "object"
             },
+            "OrgAdminListRequestsQuery": {
+                "title": "Organization Admin List Requests Query Parameters",
+                "description": "پارامترهای مورد استفاده برای لیست و فیلتر کردن درخواست‌های سلامت",
+                "properties": {
+                    "limit": {
+                        "description": "تعداد آیتم‌ها در هر صفحه",
+                        "type": "integer",
+                        "default": 15,
+                        "example": 10
+                    },
+                    "page": {
+                        "description": "شماره صفحه مورد نظر",
+                        "type": "integer",
+                        "default": 1,
+                        "example": 1
+                    },
+                    "search": {
+                        "description": "عبارت جستجو در فیلدهای قابل جستجو",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "status": {
+                        "description": "فیلتر بر اساس وضعیت",
+                        "type": "string",
+                        "enum": [
+                            "pending",
+                            "in_process",
+                            "done",
+                            "reject",
+                            "pending_admin_approval"
+                        ]
+                    },
+                    "orderBy": {
+                        "description": "فیلد مورد نظر برای مرتب‌سازی",
+                        "type": "string",
+                        "default": "created_at",
+                        "enum": [
+                            "created_at",
+                            "status"
+                        ]
+                    },
+                    "direction": {
+                        "description": "جهت مرتب‌سازی",
+                        "type": "string",
+                        "default": "desc",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
             "OrgAdminStoreHealthRequest": {
                 "title": "Organization Admin Store Health Request",
                 "properties": {
@@ -4374,6 +4503,129 @@
                         "type": "string",
                         "format": "date-time",
                         "example": "2024-06-01T12:34:56Z"
+                    }
+                },
+                "type": "object"
+            },
+            "OrgAdminParticipantStatusResource": {
+                "properties": {
+                    "employee": {
+                        "$ref": "#/components/schemas/MinimalEmployeeResource"
+                    },
+                    "overall_status": {
+                        "description": "وضعیت کلی این کارمند در درخواست",
+                        "type": "string"
+                    },
+                    "tasks_status": {
+                        "properties": {
+                            "hra": {
+                                "type": "string",
+                                "enum": [
+                                    "pending",
+                                    "draft",
+                                    "submitted"
+                                ]
+                            },
+                            "lab_data": {
+                                "type": "string",
+                                "enum": [
+                                    "pending",
+                                    "completed"
+                                ]
+                            },
+                            "teb_kar": {
+                                "type": "string",
+                                "enum": [
+                                    "pending",
+                                    "completed",
+                                    "completed_from_history"
+                                ]
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "MinimalEmployeeResource": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "photo": {
+                        "type": "string",
+                        "format": "uri"
+                    }
+                },
+                "type": "object"
+            },
+            "OrgAdminRequestDetailsResource": {
+                "title": "Organization Admin Request Details Resource",
+                "description": "پاسخ کامل جزئیات یک درخواست برای ادمین سازمان",
+                "properties": {
+                    "id": {
+                        "description": "ID درخواست",
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "status": {
+                        "description": "وضعیت کلی درخواست",
+                        "type": "string",
+                        "example": "in_process"
+                    },
+                    "participation_rate": {
+                        "description": "نرخ مشارکت کلی به درصد",
+                        "type": "integer",
+                        "example": 75
+                    },
+                    "reports": {
+                        "description": "این بخش فقط در صورت تکمیل شدن درخواست (status='done') نمایش داده می‌شود و شامل گزارش‌های تجمعی است.",
+                        "properties": {
+                            "overall_score_averages": {
+                                "description": "میانگین اسکورها در سطح کل درخواست",
+                                "type": "object",
+                                "example": {
+                                    "diabetes_risk_score": 55.5,
+                                    "cvd_risk_score": 30.2
+                                }
+                            }
+                        },
+                        "type": "object",
+                        "nullable": true
+                    },
+                    "participants_status": {
+                        "description": "این بخش فقط در صورت در حال انجام بودن درخواست نمایش داده می‌شود و شامل وضعیت هر کارمند است.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrgAdminParticipantStatusResource"
+                        },
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "OrgAdminRequestListResource": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "created_at_formatted": {
+                        "type": "string",
+                        "example": "۱۴۰۳/۰۴/۱۵"
+                    },
+                    "status": {
+                        "type": "string",
+                        "example": "تکمیل شده"
+                    },
+                    "participation_rate": {
+                        "description": "نرخ مشارکت به درصد",
+                        "type": "integer",
+                        "example": 95
+                    },
+                    "total_employees": {
+                        "type": "integer",
+                        "example": 100
                     }
                 },
                 "type": "object"

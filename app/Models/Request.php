@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Concerns\Models\Searchable;
 use Illuminate\Database\Eloquent\Model;
 
 class Request extends Model
 {
-
+    use Searchable;
     protected $fillable = [
         'tracking_code',
         'organization_id',
@@ -15,6 +16,9 @@ class Request extends Model
         'requester_type',
         'status',
         'options'
+    ];
+    protected array $searchable = [
+        'tracking_code',
     ];
     protected $casts = [
         'options' => 'array',

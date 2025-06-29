@@ -98,4 +98,64 @@ class RequestRepository extends BaseRepository
             ])
             ->first();
     }
+
+    public function listForOrganization(int $organizationId, array $params = []): LengthAwarePaginator
+    {
+        $perPage = $params['limit'] ?? 15;
+        $orderBy = $params['orderBy'] ?? 'created_at';
+        $direction = $params['direction'] ?? 'desc';
+        $searchTerm = $params['search'] ?? null;
+
+        $query = $this->query()
+            ->where('organization_id', $organizationId)
+            ->withCount('requestEmployees as total_employees_count')
+            ->withCount([
+                'requestEmployees as completed_employees_count' => function ($query) {
+                    $query->where('status', 'done');
+                }
+            ]);
+
+        if ($searchTerm) {
+            $query->search($searchTerm);
+        }
+
+        if (!empty($params['status'])) {
+            $query->where('status', $params['status']);
+        }
+
+        $allowedSorts = ['created_at', 'status'];
+        if (in_array($orderBy, $allowedSorts)) {
+            $query->orderBy($orderBy, $direction);
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        return $query->paginate($perPage);
+    }
+    public function getDetailsForOrganization(int $organizationId, int $requestId): ?\App\Models\Request
+    {
+        return $this->query()
+            ->where('organization_id', $organizationId)
+            ->where('id', $requestId)
+            ->with([
+                'requestEmployees.employee' => function ($query) use ($organizationId) {
+                    $query->with([
+                        'organizationEmployee' => function ($q) use ($organizationId) {
+                            $q->where('organization_id', $organizationId)->with('departments:id,name');
+                        }
+                    ]);
+                },
+                'requestEmployees.hraQuestionnaireInstance:id,request_employee_id,status',
+                'requestEmployees.labData',
+                'requestEmployees.tebKar',
+                'requestEmployees.calculatedScore',
+            ])
+            ->withCount('requestEmployees as total_employees_count')
+            ->withCount([
+                'requestEmployees as completed_employees_count' => function ($query) {
+                    $query->where('status', 'done');
+                }
+            ])
+            ->first();
+    }
 }
