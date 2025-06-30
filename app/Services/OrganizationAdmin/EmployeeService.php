@@ -16,7 +16,10 @@ class EmployeeService
     {
         $this->employeeRepository = $employeeRepository;
     }
-
+    public function getEmployeeList(int $organizationId, array $params)
+    {
+        return $this->employeeRepository->listForOrganization($organizationId, $params);
+    }
     protected function getAuthenticatedOrgId()
     {
         return auth()->user()->organization_id;
@@ -156,4 +159,5 @@ class EmployeeService
 
         $this->employeeRepository->deleteOrganizationEmployee($orgEmployee);
     }
+
 }

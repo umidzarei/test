@@ -30,21 +30,22 @@ class EmployeeResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $organizationId     = auth()->user()->organization_id ?? null;
+        $organizationId = auth()->user()->organization_id ?? null;
         $orgEmployeeDetails = null;
         if ($organizationId && $this->relationLoaded('organizationEmployee')) {
-            $orgEmployeeDetails = $this->organizationEmployee;
-        }return [
-            'id'            => $this->id,
+            $orgEmployeeDetails = $this->organizationEmployee->where('organization_id', $organizationId)->first();
+        }
+        return [
+            'id' => $this->id,
             'national_code' => $this->national_code,
-            'name'          => $this->name,
-            'email'         => $this->email,
-            'phone'         => $this->phone,
-            'photo'         => $this->photo ? Storage::disk(config('filesystems.default_public_disk_name', 's3_public'))->url($this->photo) : null,
-            'job_position'  => $orgEmployeeDetails ? $orgEmployeeDetails->job_position : null,
-            'departments'   => $orgEmployeeDetails && $orgEmployeeDetails->relationLoaded('departments') ? DepartmentResource::collection($orgEmployeeDetails->departments) : [],
-            'created_at'    => $this->created_at?->format('Y-m-d H:i:s'),
-            'updated_at'    => $this->updated_at?->format('Y-m-d H:i:s'),
+            'name' => $this->name,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'photo' => $this->photo ? Storage::disk(config('filesystems.default_public_disk_name', 's3_public'))->url($this->photo) : null,
+            'job_position' => $orgEmployeeDetails ? $orgEmployeeDetails->job_position : null,
+            'departments' => $orgEmployeeDetails && $orgEmployeeDetails->relationLoaded('departments') ? DepartmentResource::collection($orgEmployeeDetails->departments) : [],
+            'created_at' => $this->created_at?->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at?->format('Y-m-d H:i:s'),
         ];
     }
 }

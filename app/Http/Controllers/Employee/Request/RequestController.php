@@ -36,7 +36,8 @@ class RequestController extends Controller
      */
     public function index(ListRequestsRequest $request): JsonResponse
     {
-        $employeeId = Auth::id();
+        $employeeId = Auth::user()->id;
+        ;
         $requests = $this->requestService->getRequestList($employeeId, $request->validated());
 
         return response()->apiResult(
@@ -85,7 +86,8 @@ class RequestController extends Controller
      */
     public function show(int $id): JsonResponse
     {
-        $employeeId = Auth::id();
+        $employeeId = Auth::user()->id;
+        ;
 
         $result = $this->requestService->getRequestDetailsForEmployee($id, $employeeId);
 

@@ -50,8 +50,8 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $admin = Auth::user();
-        $updatedAdmin = $this->adminProfileService->updateAdminProfile($admin, $request->validated());
-        return response()->apiResult(new OrganizationAdminResource($updatedAdmin), __('messages.profile_updated_successfully'));
+        $this->adminProfileService->updateAdminProfile($admin, $request->validated());
+        return response()->apiResult(__('messages.profile_updated_successfully'));
     }
 
     /**

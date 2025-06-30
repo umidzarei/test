@@ -32,7 +32,7 @@ class ProfileService
      * @param array $data
      * @return OrganizationAdmin
      */
-    public function updateAdminProfile(OrganizationAdmin $admin, array $data): OrganizationAdmin
+    public function updateAdminProfile(OrganizationAdmin $admin, array $data)
     {
         return $this->adminRepository->update($admin->id, $data);
     }

@@ -82,4 +82,40 @@ class CVDRiskServiceTest extends TestCase
         // Assert
         $this->assertEquals(0, $score); // High risk (>= 30%)
     }
+    public function it_calculates_the_correct_framingham_points_and_risk_end_to_end()
+    {
+        $realCvdService = new CVDRiskService();
+
+        $questionnaire = [
+            'Q1' => 40,      // Age
+            'Q2' => 'male',  // Gender
+            'Q6' => 'A',     // Not treated for BP
+            'Q12' => 'A',    // Not a smoker
+        ];
+        $biometrics = [
+            'systolic_bp' => 125,
+        ];
+        $labTests = [
+            'total_cholesterol' => 180,
+            'hdl' => 55,
+        ];
+
+        /*
+         * Expected Manual Calculation:
+         * Age (40-44, male): 5 points
+         * Total Cholesterol (40-49, 160-199, male): 1 point
+         * HDL (50-59, male): 0 points
+         * Systolic BP (120-129, untreated, male): 1 point
+         * Smoker: 0 points
+         * TOTAL POINTS = 5 + 1 + 0 + 1 + 0 = 7 points
+         * Risk for 7 points (male): 3%
+         * Final Score (mapToSegmentScore for 3%): 10.0
+         */
+
+
+        $score = $realCvdService->calculateScore($questionnaire, $biometrics, $labTests);
+
+
+        $this->assertEquals(10.0, $score);
+    }
 }

@@ -35,6 +35,6 @@ class OrganizationController extends Controller
     {
         $employee = Auth::user();
         $organizations = $this->organizationService->getOrganizationsForEmployee($employee);
-        return response()->apiResult(data: OrganizationResource::collection($organizations));
+        return response()->apiResult(data: new OrganizationResource($organizations));
     }
 }

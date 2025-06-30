@@ -7,6 +7,7 @@ use App\Http\Requests\OrganizationAdmin\ImportEmployeeRequest;
 use App\Http\Resources\OrganizationAdmin\EmployeeResource;
 use App\Imports\OrganizationEmployeesImport;
 use App\Services\OrganizationAdmin\EmployeeService;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,37 +21,32 @@ class EmployeeController extends Controller
         $this->service = $service;
     }
     /**
-     * OA docs for this route
      * @OA\Get(
-     *     path="/api/hr/employees",
-     *     tags={"OrganizationAdmin/Employees"},
-     *     security={{"bearerAuth":{}}},
-     *     @OA\Parameter(
-     *         name="limit",
-     *         in="query",
-     *         description="Limit",
-     *         required=false,
-     *         @OA\Schema(
-     *             type="integer",
-     *             example=10
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=200,
-     *         description="OK",
-     *         @OA\JsonContent(
-     *             type="array",
-     *             @OA\Items(ref="#/components/schemas/OrganizationAdminEmployeeResource")
-     *         )
-     *     )
+     * path="/api/hr/employees",
+     * summary="Get a paginated list of employees for the organization",
+     * tags={"OrganizationAdmin/Employees"},
+     * security={{"sanctum":{}}},
+     * @OA\Parameter(name="limit", in="query", description="Number of items per page", required=false, @OA\Schema(type="integer", example=15)),
+     * @OA\Parameter(name="search", in="query", description="Search term for employee name, national code, or email", required=false, @OA\Schema(type="string")),
+     * @OA\Parameter(name="department_id", in="query", description="Filter employees by a specific department ID", required=false, @OA\Schema(type="integer")),
+     * @OA\Parameter(name="orderBy", in="query", description="Field to sort by", required=false, @OA\Schema(type="string", enum={"id", "first_name", "last_name", "national_code", "created_at"})),
+     * @OA\Parameter(name="direction", in="query", description="Sort direction", required=false, @OA\Schema(type="string", enum={"asc", "desc"})),
+     * @OA\Response(
+     * response=200,
+     * description="OK",
+     * @OA\JsonContent(
+     * type="object",
+     * @OA\Property(property="data", type="array", @OA\Items(ref="#/components/schemas/AdminEmployeeResource")),
+     * @OA\Property(property="links", type="object"),
+     * @OA\Property(property="meta", type="object")
      * )
-     *
-     * @param Request $request
-     * @return JsonResponse
+     * )
+     * )
      */
     public function index(Request $request)
     {
-        $result = $this->service->getAllForAuthenticatedOrgAdmin($request->limit)
+        $organizationId = Auth::user()->organization_id;
+        $result = $this->service->getEmployeeList($organizationId, $request->validated())
             ->through(fn($r) => new EmployeeResource($r));
         return response()->apiResult(data: $result);
 

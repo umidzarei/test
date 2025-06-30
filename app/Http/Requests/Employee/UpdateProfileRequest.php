@@ -33,7 +33,8 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = Auth::id();
+        $id = Auth::user()->id;
+        ;
         $emailRule = 'unique:employees,email';
         $phoneRule = 'unique:employees,phone';
         $nationalCodeRule = 'unique:employees,national_code';

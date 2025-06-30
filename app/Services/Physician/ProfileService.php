@@ -32,7 +32,7 @@ class ProfileService
      * @param array $data
      * @return Physician
      */
-    public function updateAdminProfile(Physician $admin, array $data): Physician
+    public function updateAdminProfile(Physician $admin, array $data)
     {
         return $this->physicianRepository->update($admin->id, $data);
     }

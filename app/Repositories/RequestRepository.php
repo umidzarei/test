@@ -158,4 +158,30 @@ class RequestRepository extends BaseRepository
             ])
             ->first();
     }
+    public function findLatestActiveForOrganization(int $organizationId)
+    {
+        return $this->query()
+            ->where('organization_id', $organizationId)
+            ->whereNotIn('status', ['pending', 'done', 'cancelled'])
+            ->withCount([
+                'requestEmployees as total_employees_count',
+                'requestEmployees as completed_employees_count' => function ($query) {
+                    $query->where('status', 'done');
+                }
+            ])
+            ->latest('created_at')
+            ->first();
+    }
+    public function findLatestCompletedForOrganization(int $organizationId)
+    {
+        return $this->query()
+            ->where('organization_id', $organizationId)
+            ->where('status', 'done')
+            ->with([
+                'requestEmployees.calculatedScore',
+                'requestEmployees.employee.organizationEmployee.departments'
+            ])
+            ->latest('updated_at')
+            ->first();
+    }
 }

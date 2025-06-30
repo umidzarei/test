@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationAdmin\DepartmentRequest;
 use App\Http\Resources\OrganizationAdmin\DepartmentResource;
 use App\Services\OrganizationAdmin\DepartmentService;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -169,5 +170,20 @@ class DepartmentController extends Controller
         $this->service->deleteForAuthenticatedOrgAdmin($id);
         return response()->apiResult(messages: [__('messages.deleted')]);
 
+    }
+    /**
+     * @OA\Get(
+     * path="/api/hr/departments/list-for-select",
+     * summary="Get a simple list of departments for dropdowns",
+     * tags={"OrganizationAdmin/Departments"},
+     * security={{"sanctum":{}}},
+     * @OA\Response(response=200, description="OK")
+     * )
+     */
+    public function listForSelect(): JsonResponse
+    {
+        $organizationId = Auth::user()->organization_id;
+        $departments = $this->service->getListForSelect($organizationId);
+        return response()->apiResult(data: $departments);
     }
 }

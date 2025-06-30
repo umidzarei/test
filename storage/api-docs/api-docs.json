@@ -2250,6 +2250,71 @@
                 ]
             }
         },
+        "/api/hr/dashboard": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Dashboard"
+                ],
+                "summary": "Get dashboard data for the organization admin",
+                "operationId": "50e1386f0e624bc93d1eea1b34bcf474",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "participation_rate": {
+                                                    "type": "object",
+                                                    "example": {
+                                                        "percentage": 75,
+                                                        "description": "نرخ مشارکت در ارزیابی‌ها"
+                                                    }
+                                                },
+                                                "health_scores_summary": {
+                                                    "type": "object",
+                                                    "example": {
+                                                        "hq_score": {
+                                                            "value": 85,
+                                                            "label": "امتیاز کلی HQ"
+                                                        }
+                                                    }
+                                                },
+                                                "teams_status": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object"
+                                                    },
+                                                    "example": [
+                                                        {
+                                                            "team_name": "تیم فنی",
+                                                            "hq_score": 92,
+                                                            "status": "عالی"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/hr/departments": {
             "get": {
                 "tags": [
@@ -2431,22 +2496,88 @@
                 ]
             }
         },
+        "/api/hr/departments/list-for-select": {
+            "get": {
+                "tags": [
+                    "OrganizationAdmin/Departments"
+                ],
+                "summary": "Get a simple list of departments for dropdowns",
+                "operationId": "a3dce1ef1193316ef9efbcdd618e2e6e",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/hr/employees": {
             "get": {
                 "tags": [
                     "OrganizationAdmin/Employees"
                 ],
-                "summary": "OA docs for this route",
+                "summary": "Get a paginated list of employees for the organization",
                 "operationId": "3cf0f9346b1838be942219ce5fb167ef",
                 "parameters": [
                     {
                         "name": "limit",
                         "in": "query",
-                        "description": "Limit",
+                        "description": "Number of items per page",
                         "required": false,
                         "schema": {
                             "type": "integer",
-                            "example": 10
+                            "example": 15
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search term for employee name, national code, or email",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "department_id",
+                        "in": "query",
+                        "description": "Filter employees by a specific department ID",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "orderBy",
+                        "in": "query",
+                        "description": "Field to sort by",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "id",
+                                "first_name",
+                                "last_name",
+                                "national_code",
+                                "created_at"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Sort direction",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "asc",
+                                "desc"
+                            ]
                         }
                     }
                 ],
@@ -2456,10 +2587,21 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "$ref": "#/components/schemas/OrganizationAdminEmployeeResource"
-                                    }
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/AdminEmployeeResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object"
+                                        },
+                                        "meta": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -2467,7 +2609,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "sanctum": []
                     }
                 ]
             },
@@ -3733,6 +3875,49 @@
                 },
                 "type": "object"
             },
+            "OrgAdminListEmployeesRequest": {
+                "title": "Organization Admin List Employees Request",
+                "description": "Query parameters for listing and filtering employees in the organization admin panel.",
+                "properties": {
+                    "limit": {
+                        "description": "Number of items per page",
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "search": {
+                        "description": "Search term for employee name, national code, or email",
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "department_id": {
+                        "description": "Filter employees by a specific department ID",
+                        "type": "integer",
+                        "example": 12
+                    },
+                    "orderBy": {
+                        "description": "Field to sort by",
+                        "type": "string",
+                        "enum": [
+                            "id",
+                            "first_name",
+                            "last_name",
+                            "national_code",
+                            "created_at"
+                        ],
+                        "example": "last_name"
+                    },
+                    "direction": {
+                        "description": "Sort direction",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "example": "asc"
+                    }
+                },
+                "type": "object"
+            },
             "OrgAdminListRequestsQuery": {
                 "title": "Organization Admin List Requests Query Parameters",
                 "description": "پارامترهای مورد استفاده برای لیست و فیلتر کردن درخواست‌های سلامت",
@@ -4760,6 +4945,10 @@
         {
             "name": "Employee/Requests",
             "description": "Employee/Requests"
+        },
+        {
+            "name": "OrganizationAdmin/Dashboard",
+            "description": "OrganizationAdmin/Dashboard"
         },
         {
             "name": "OrganizationAdmin/Departments",

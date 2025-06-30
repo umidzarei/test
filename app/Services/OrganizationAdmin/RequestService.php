@@ -11,24 +11,27 @@ use App\Repositories\SettingRepository;
 use App\Repositories\TebKarRepository;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use App\Repositories\RequestEmployeeRepository;
 class RequestService
 {
     protected RequestRepository $requestRepository;
     protected EmployeeRepository $employeeRepository;
     protected SettingRepository $settingRepository;
     protected TebKarRepository $tebKarRepository;
-
+    protected RequestEmployeeRepository $requestEmployeeRepository;
     public function __construct(
         RequestRepository $requestRepository,
         EmployeeRepository $employeeRepository,
         SettingRepository $settingRepository,
-        TebKarRepository $tebKarRepository
+        TebKarRepository $tebKarRepository,
+        RequestEmployeeRepository $requestEmployeeRepository
 
     ) {
         $this->requestRepository = $requestRepository;
         $this->employeeRepository = $employeeRepository;
         $this->settingRepository = $settingRepository;
         $this->tebKarRepository = $tebKarRepository;
+        $this->requestEmployeeRepository = $requestEmployeeRepository;
     }
 
     public function getRequestListForOrganization(int $organizationId, array $params)
@@ -182,5 +185,9 @@ class RequestService
             'overall_score_averages' => $overallAverages,
             'department_score_averages' => $departmentAverages,
         ];
+    }
+    public function getPaginatedRequestEmployees(int $requestId, array $params): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        return $this->requestEmployeeRepository->listForRequest($requestId, $params);
     }
 }

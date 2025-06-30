@@ -29,7 +29,8 @@ class UpdateProfileRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = Auth::id();
+        $id = Auth::user()->id;
+        ;
         $emailRule = 'unique:admins,email';
         $phoneRule = 'unique:admins,phone';
 

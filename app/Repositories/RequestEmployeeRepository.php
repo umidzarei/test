@@ -22,7 +22,22 @@ class RequestEmployeeRepository extends BaseRepository
             ->where('request_id', $requestId)
             ->get();
     }
+    public function listForRequest(int $requestId, array $params = [])
+    {
+        $perPage = $params['limit'] ?? 15;
 
+        $query = $this->query()
+            ->where('request_id', $requestId)
+            ->with([
+                'employee:id,first_name,last_name,national_code',
+                'hraQuestionnaireInstance:id,request_employee_id,status',
+                'labData:id,request_employee_id',
+                'tebKar:id,request_employee_id'
+            ]);
+
+
+        return $query->paginate($perPage);
+    }
     public function fullDetail(int $id)
     {
         return $this->modelClass::query()

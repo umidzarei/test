@@ -50,8 +50,8 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $physician = Auth::user();
-        $updatedPhysician = $this->physicianProfileService->updateAdminProfile($physician, $request->validated());
-        return response()->apiResult(new PhysicianResource($updatedPhysician), __('messages.profile_updated_successfully'));
+        $this->physicianProfileService->updateAdminProfile($physician, $request->validated());
+        return response()->apiResult(__('messages.profile_updated_successfully'));
     }
 
     /**

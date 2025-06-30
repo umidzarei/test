@@ -49,8 +49,8 @@ class ProfileController extends Controller
     public function update(UpdateProfileRequest $request)
     {
         $employee = Auth::user();
-        $updatedEmployee = $this->employeeProfileService->updateProfile($employee, $request->validated());
-        return response()->apiResult(new EmployeeResource($updatedEmployee), __('messages.profile_updated_successfully'));
+        $this->employeeProfileService->updateProfile($employee, $request->validated());
+        return response()->apiResult(__('messages.profile_updated_successfully'));
     }
 
 

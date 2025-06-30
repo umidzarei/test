@@ -125,10 +125,12 @@ class EmployeeRepository extends BaseRepository
     public function getAssociatedOrganizations(Employee $employee): Collection
     {
         return $employee->organizationEmployee()
-            ->with('organization:id,name,logo')
+            ->with('organization')
             ->get()
             ->pluck('organization')
-            ->filter();
+            ->filter(function ($organization) {
+                return $organization !== null;
+            });
     }
     public function getByDepartmentIds(array $departmentIds, int $organizationId): Collection
     {
@@ -150,5 +152,36 @@ class EmployeeRepository extends BaseRepository
             })
             ->pluck('id')
             ->all();
+    }
+    public function listForOrganization(int $organizationId, array $params): LengthAwarePaginator
+    {
+        $query = $this->query()
+            ->whereHas('organizationEmployee', function ($q) use ($organizationId) {
+                $q->where('organization_id', $organizationId);
+            })
+            ->with([
+                'organizationEmployee' => function ($q) use ($organizationId) {
+                    $q->where('organization_id', $organizationId)->with('departments:id,name');
+                }
+            ]);
+
+        if (!empty($params['search'])) {
+            $query->search(trim($params['search']));
+        }
+
+        if (!empty($params['department_id'])) {
+            $query->whereHas('organizationEmployee.departments', function ($q) use ($params) {
+                $q->where('departments.id', $params['department_id']);
+            });
+        }
+
+        $orderBy = $params['orderBy'] ?? 'id';
+        $direction = $params['direction'] ?? 'desc';
+        $allowedOrderByFields = ['id', 'first_name', 'last_name', 'national_code', 'created_at'];
+        if (in_array($orderBy, $allowedOrderByFields)) {
+            $query->orderBy($orderBy, $direction);
+        }
+
+        return $query->paginate($params['limit'] ?? 15);
     }
 }

@@ -27,7 +27,7 @@ class DepartmentService
 
     public function createForAuthenticatedOrgAdmin(array $data)
     {
-        $organizationId          = $this->getAuthenticatedOrgAdminOrganizationId();
+        $organizationId = $this->getAuthenticatedOrgAdminOrganizationId();
         $data['organization_id'] = $organizationId;
 
         return $this->departmentRepository->create($data);
@@ -36,9 +36,9 @@ class DepartmentService
     public function getByIdForAuthenticatedOrgAdmin($departmentId)
     {
         $organizationId = $this->getAuthenticatedOrgAdminOrganizationId();
-        $department     = $this->departmentRepository->find($departmentId);
+        $department = $this->departmentRepository->find($departmentId);
 
-        if (! $department || $department->organization_id !== $organizationId) {
+        if (!$department || $department->organization_id !== $organizationId) {
             throw new ModelNotFoundException(__('messages.not_found_or_not_accessible'));
         }
         return $department;
@@ -47,9 +47,9 @@ class DepartmentService
     public function updateForAuthenticatedOrgAdmin($departmentId, array $data)
     {
         $organizationId = $this->getAuthenticatedOrgAdminOrganizationId();
-        $department     = $this->departmentRepository->find($departmentId);
+        $department = $this->departmentRepository->find($departmentId);
 
-        if (! $department || $department->organization_id !== $organizationId) {
+        if (!$department || $department->organization_id !== $organizationId) {
             throw new ModelNotFoundException(__('messages.not_found_or_not_accessible'));
         }
 
@@ -62,12 +62,16 @@ class DepartmentService
     public function deleteForAuthenticatedOrgAdmin($departmentId)
     {
         $organizationId = $this->getAuthenticatedOrgAdminOrganizationId();
-        $department     = $this->departmentRepository->find($departmentId);
+        $department = $this->departmentRepository->find($departmentId);
 
-        if (! $department || $department->organization_id !== $organizationId) {
+        if (!$department || $department->organization_id !== $organizationId) {
             throw new ModelNotFoundException(__('messages.not_found_or_not_accessible'));
         }
 
         return $this->departmentRepository->delete($departmentId);
+    }
+    public function getListForSelect(int $organizationId)
+    {
+        return $this->departmentRepository->getForOrganization($organizationId);
     }
 }

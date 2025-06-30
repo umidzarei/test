@@ -58,4 +58,10 @@ class DepartmentRepository extends BaseRepository
             ->where('organization_id', $organizationId)
             ->paginate($perPage);
     }
+    public function getForOrganization(int $organizationId)
+    {
+        return $this->query()
+            ->where('organization_id', $organizationId)
+            ->get(['id', 'name']);
+    }
 }

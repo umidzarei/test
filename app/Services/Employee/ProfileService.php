@@ -32,7 +32,7 @@ class ProfileService
      * @param array $data
      * @return Employee
      */
-    public function updateProfile(Employee $admin, array $data): Employee
+    public function updateProfile(Employee $admin, array $data)
     {
         return $this->employeeRepository->update($admin->id, $data);
     }
